@@ -11,8 +11,6 @@ export default ({postId}) => {
       content
     });
 
-    console.log(`post id ${postId}`);
-
     setContent("");
   };
 
