@@ -1,0 +1,58 @@
+apiVersion: skaffold/v2alpha3
+kind: Config
+deploy:
+  kubectl:
+    manifests:
+      - ./infra/k8s/*
+build:
+  local:
+    push: false
+  artifacts:
+    - image: ryangaro/client
+      context: client
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: 'src/**/*.js'
+            dest: .
+    - image: ryangaro/comments
+      context: comments
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: ryangaro/event-bus
+      context: event-bus
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: ryangaro/moderation
+      context: moderation
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: ryangaro/posts
+      context: posts
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
+    - image: ryangaro/query
+      context: query
+      docker:
+        dockerfile: dockerfile
+      sync:
+        manual:
+          - src: '*.js'
+            dest: .
